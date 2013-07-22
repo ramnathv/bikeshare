@@ -18,6 +18,18 @@ assets:
 </style>
 
 ## Visualizing Bike Sharing Networks
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style ">
+<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+<a class="addthis_button_tweet"></a>
+<a class="addthis_button_pinterest_pinit"></a>
+<a class="addthis_counter addthis_pill_style"></a>
+</div>
+<script type="text/javascript">
+  var addthis_config = {"data_track_addressbar":true};
+</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4fdfcfd4773d48d3"></script>
+<!-- AddThis Button END -->
 
 A couple of months ago I had posted an interesting application of using rCharts and Shiny to visualize the CitiBike system in NYC. I had always wanted to write a tutorial about its inner workings, so that it would be useful to others looking to build similar visualizations, and I finally got around to doing it. Along the way, I managed to extend the visualization to around 100 bike sharing systems across the world. The final application can be viewed [here](http://glimmer.rstudio.com/ramnathv/BikeShare). 
 
@@ -160,7 +172,7 @@ getNetworks <- function(){
 
 This is the easiest part of the whole tutorial. Shiny requires two files `ui.R` and `server.R`, that contain the UI and server logic respectively.
 
-For the UI, I make use of a basic bootstrap page that ships with Shiny. The first three lines add links to a custom style file and javascript file that allow me to add a collapsible __credits__ box at the bottom left of the page. I use a `selectInput` for users to select the network they want to visualize, and populate it with an alphabetically sorted list of names of all the networks, initialized to `citibikenyc`. Finally, I use the `mapOutput` function which adds a div containter named `map_container` that houses the map.
+For the UI, I make use of a basic bootstrap page that ships with Shiny. Lines 5 - 7 add links to a custom style file and javascript file that allow me to add a collapsible __credits__ box at the bottom left of the page. I use a `selectInput` for users to select the network they want to visualize, and populate it with an alphabetically sorted list of names of all the networks, initialized to `citibikenyc`. Finally, I use the `mapOutput` function which adds a div containter named `map_container` that houses the map.
 
 
 
@@ -194,7 +206,7 @@ shinyServer(function(input, output, session){
 
 
 
-#### Credits
+### Acknowledgements
 
 1. [Vladimir Agafonkin](http://leafletjs.com) for Leaflet.
 2. [CitiBikes](http://citybik.es/) for easy access to data.

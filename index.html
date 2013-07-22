@@ -49,6 +49,23 @@
 
 <h2>Visualizing Bike Sharing Networks</h2>
 
+<!-- AddThis Button BEGIN -->
+
+<div class="addthis_toolbox addthis_default_style ">
+<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+<a class="addthis_button_tweet"></a>
+<a class="addthis_button_pinterest_pinit"></a>
+<a class="addthis_counter addthis_pill_style"></a>
+</div>
+
+<script type="text/javascript">
+  var addthis_config = {"data_track_addressbar":true};
+</script>
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4fdfcfd4773d48d3"></script>
+
+<!-- AddThis Button END -->
+
 <p>A couple of months ago I had posted an interesting application of using rCharts and Shiny to visualize the CitiBike system in NYC. I had always wanted to write a tutorial about its inner workings, so that it would be useful to others looking to build similar visualizations, and I finally got around to doing it. Along the way, I managed to extend the visualization to around 100 bike sharing systems across the world. The final application can be viewed <a href="http://glimmer.rstudio.com/ramnathv/BikeShare">here</a>. </p>
 
 <p><a href="http://glimmer.rstudio.com/ramnathv/BikeShare">
@@ -176,7 +193,7 @@ runGitHub(&quot;bikeshare&quot;, &quot;ramnathv&quot;, ref = &quot;gh-pages&quot
 
 <p>This is the easiest part of the whole tutorial. Shiny requires two files <code>ui.R</code> and <code>server.R</code>, that contain the UI and server logic respectively.</p>
 
-<p>For the UI, I make use of a basic bootstrap page that ships with Shiny. The first three lines add links to a custom style file and javascript file that allow me to add a collapsible <strong>credits</strong> box at the bottom left of the page. I use a <code>selectInput</code> for users to select the network they want to visualize, and populate it with an alphabetically sorted list of names of all the networks, initialized to <code>citibikenyc</code>. Finally, I use the <code>mapOutput</code> function which adds a div containter named <code>map_container</code> that houses the map.</p>
+<p>For the UI, I make use of a basic bootstrap page that ships with Shiny. Lines 5 - 7 add links to a custom style file and javascript file that allow me to add a collapsible <strong>credits</strong> box at the bottom left of the page. I use a <code>selectInput</code> for users to select the network they want to visualize, and populate it with an alphabetically sorted list of names of all the networks, initialized to <code>citibikenyc</code>. Finally, I use the <code>mapOutput</code> function which adds a div containter named <code>map_container</code> that houses the map.</p>
 
 <pre><code class="r">require(shiny)
 require(rCharts)
@@ -201,7 +218,7 @@ shinyServer(function(input, output, session){
 })
 </code></pre>
 
-<h4>Credits</h4>
+<h3>Acknowledgements</h3>
 
 <ol>
 <li><a href="http://leafletjs.com">Vladimir Agafonkin</a> for Leaflet.</li>
