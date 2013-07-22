@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Bike Sharing Systems</title>
+    <link rel="stylesheet" href="libraries/frameworks/minimal/stylesheets/styles.css">
+    <link rel="stylesheet" href="libraries/highlighters/prettify/css/twitter-bootstrap.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+        <link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Sans"></link>
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+<header>
+  <h2>Bike Sharing Systems</h2>
+  <p>rCharts + Shiny</p>
+  <p class="view">
+    <a href="http://github.com/ramnathv/bikeshare">
+     View the Project on GitHub <small>ramnathv/bikeshare</small>
+    </a>
+  </p>
+  <ul class='buttons'>
+    <li><a href="https://github.com/ramnathv/bikeshare/zipball/gh-pages">
+      Download <strong>ZIP File</strong>
+    </a></li>
+    <li><a href="https://github.com/ramnathv/bikeshare/tarball/gh-pages">
+      Download <strong>TAR Ball</strong>
+    </a></li>
+    <li><a href="http://github.com/ramnathv/bikeshare">
+      Fork On <strong>GitHub</strong></a>
+    </li>
+  </ul>
+    <ol>
+    </ol>
+</header>
+
+      <section>
+        
+<style>
+ /* body{background: white;} */
+ ol.linenums{margin-left: -8px;}
+ p, li{text-align: justify;font-size: 15px;line-height:1.5em;font-family: "PT Sans"}
+</style>
+
+<h2>Visualizing Bike Sharing Networks</h2>
+
+<p>A couple of months ago I had posted an interesting application of using rCharts and Shiny to visualize the CitiBike system in NYC. I had always wanted to write a tutorial about its inner workings, so that it would be useful to others looking to build similar visualizations, and I finally got around to doing it. Along the way, I managed to extend the visualization to around 100 bike sharing systems across the world. The final application can be viewed <a href="http://glimmer.rstudio.com/ramnathv/BikeShare">here</a>. </p>
+
+<p><a href="http://glimmer.rstudio.com/ramnathv/BikeShare">
+<img src=http://www.clipular.com/c?10951071=aD5PWoWf3MjZaDGbvSxV7ZyIeM4&f=.png>
+</img>
+</a></p>
+
+<p>If you are impatient, you can view all the code on my <a href="http://github.com/ramnathv/bikeshare">github repo</a> and run the application directly from github.</p>
+
+<pre><code class="r">require(shiny)
+runGitHub(&quot;bikeshare&quot;, &quot;ramnathv&quot;, ref = &quot;gh-pages&quot;, subdir = &quot;app&quot;)
+</code></pre>
+
+<p>If you want a more detailed explanation of how the app was built, read on.</p>
+
+<h3>Introduction</h3>
+
+<p>My mantra for building interactive visualizations involves three steps, and it has worked well for me most of the time.</p>
+
+<ol>
+<li>Get Data.</li>
+<li>Create Visualization.</li>
+<li>Wrap in Shiny/AngularJS!</li>
+</ol>
+
+<p>Let me expand on this and build the web app one step at a time.</p>
+
+<h3>Get Data</h3>
+
+<p>The first step is to get the data on availability of bikes in a city. Thankfully, the folks at <a href="CityBikes">http://api.citybik.es/</a> have provided an API that allows one to programatically retrieve the availabilities across more than 100 bike sharing networks across the world. I like to wrap my analysis workflow into small functions, so that it is modular. There are two things that my <code>getData</code> function does.</p>
+
+<ol>
+<li>Fetch data for a given network using <code>httr</code>. (thanks @hadley)</li>
+<li>Add <code>fillColor</code> and <code>popup</code> to each station of the network.</li>
+</ol>
+
+<pre><code class="r">getData &lt;- function(network = &#39;citibikenyc&#39;){
+  require(httr)
+  url = sprintf(&#39;http://api.citybik.es/%s.json&#39;, network)
+  bike = fromJSON(content(GET(url)))
+  lapply(bike, function(station){within(station, { 
+   fillColor = cut(
+     as.numeric(bikes)/(as.numeric(bikes) + as.numeric(free)), 
+     breaks = c(0, 0.20, 0.40, 0.60, 0.80, 1), 
+     labels = brewer.pal(5, &#39;RdYlGn&#39;),
+     include.lowest = TRUE
+   ) 
+   popup = iconv(whisker::whisker.render(
+      &#39;&lt;b&gt;&lt;/b&gt;&lt;br&gt;
+        &lt;b&gt;Free Docks: &lt;/b&gt;  &lt;br&gt;
+         &lt;b&gt;Available Bikes:&lt;/b&gt; 
+        &lt;p&gt;Retreived At: &lt;/p&gt;&#39;
+   ), from = &#39;latin1&#39;, to = &#39;UTF-8&#39;)
+   latitude = as.numeric(lat)/10^6
+   longitude = as.numeric(lng)/10^6
+   lat &lt;- lng &lt;- NULL})
+  })
+}
+</code></pre>
+
+<p>Now that we have the data, it is time to visualize it.</p>
+
+<h3>Create Visualization</h3>
+
+<p>Given the nature of the data, it is best to visualize on a map. <a href="http://rcharts.io">rCharts</a> provides bindings to the <a href="leafletjs.com">Leaflet</a> library, which makes mapping really easy. The <code>plotMap</code> function essentially does the following:</p>
+
+<ol>
+<li>Creates a new instances of a Leaflet map.</li>
+<li>Sets the map&#39;s provider, width, height, center and zoom level.</li>
+<li>Adds the network data retrieved as a geoJSON layer.</li>
+<li>Configures the properties of each point and popup to display on click.</li>
+</ol>
+
+<pre><code class="r">plotMap &lt;- function(network = &#39;citibikenyc&#39;, width = 1600, height = 800){
+  data_ &lt;- getData(network)
+  center_ &lt;- getCenter(network, networks)
+  L1 &lt;- Leaflet$new()
+  L1$tileLayer(provider = &#39;Stamen.TonerLite&#39;)
+  L1$set(width = width, height = height)
+  L1$setView(c(center_$lat, center_$lng), 13)
+  L1$geoJson(toGeoJSON(data_), 
+    onEachFeature = &#39;#! function(feature, layer){
+      layer.bindPopup(feature.properties.popup)
+    } !#&#39;,
+    pointToLayer =  &quot;#! function(feature, latlng){
+      return L.circleMarker(latlng, {
+        radius: 4,
+        fillColor: feature.properties.fillColor || &#39;red&#39;,    
+        color: &#39;#000&#39;,
+        weight: 1,
+        fillOpacity: 0.8
+      })
+    } !#&quot;
+  )
+  L1$enablePopover(TRUE)
+  L1$fullScreen(TRUE)
+  return(L1)
+}
+</code></pre>
+
+<p>We can test this function by plotting the availabilities of bikes in NYC. You can play with <code>plotMap</code> and change the default color palette, or popup details, and see how it affects the map.</p>
+
+<pre><code class="r">plotMap(&#39;citibikenyc&#39;, 600, 300)
+</code></pre>
+
+<iframe src='assets/img/citibikenyc.html' width = 600 frameBorder="0"></iframe>
+
+<p>Now that we have successfully visualized the bike sharing system for NYC, we can get to the exciting task of wrapping this up in a Shiny application, where the user can interactively choose the bike sharing system, whose availabilities they want to visualize. Before, we can do that, we need the names of these systems to passed to <code>plotMap</code>. Thankfully, the <a href="CityBikes">http://api.citybik.es/</a> API provides easy access to this. The <code>getNetworks</code> function retrieves this data.</p>
+
+<pre><code class="r">getNetworks &lt;- function(){
+  require(httr)
+  if (!file.exists(&#39;networks.json&#39;)){
+    url &lt;- &#39;http://api.citybik.es/networks.json&#39;
+    dat &lt;- content(GET(url))
+    writeLines(dat, &#39;networks.json&#39;)
+  }
+  networks &lt;- RJSONIO::fromJSON(&#39;networks.json&#39;)
+  nms &lt;- lapply(networks, &#39;[[&#39;, &#39;name&#39;)
+  names(networks) &lt;- nms
+  return(networks)
+}
+</code></pre>
+
+<h3>Wrap in Shiny</h3>
+
+<p>This is the easiest part of the whole tutorial. Shiny requires two files <code>ui.R</code> and <code>server.R</code>, that contain the UI and server logic respectively.</p>
+
+<p>For the UI, I make use of a basic bootstrap page that ships with Shiny. The first three lines add links to a custom style file and javascript file that allow me to add a collapsible <strong>credits</strong> box at the bottom left of the page. I use a <code>selectInput</code> for users to select the network they want to visualize, and populate it with an alphabetically sorted list of names of all the networks, initialized to <code>citibikenyc</code>. Finally, I use the <code>mapOutput</code> function which adds a div containter named <code>map_container</code> that houses the map.</p>
+
+<pre><code class="r">require(shiny)
+require(rCharts)
+networks &lt;- getNetworks()
+shinyUI(bootstrapPage( 
+  tags$link(href=&#39;style.css&#39;, rel=&#39;stylesheet&#39;),
+  tags$script(src=&#39;app.js&#39;),
+  includeHTML(&#39;www/credits.html&#39;),
+  selectInput(&#39;network&#39;, &#39;&#39;, sort(names(networks)), &#39;citibikenyc&#39;),
+  mapOutput(&#39;map_container&#39;)
+))
+</code></pre>
+
+<p>The server side code is even simpler than the UI and merely wraps the <code>plotMap</code> call inside <code>renderMap</code>, and passes the name of the network chosen by the user, <code>input$network</code> in place of the hard-coded <code>citibikenyc</code>.</p>
+
+<pre><code class="r">require(shiny)
+require(rCharts)
+shinyServer(function(input, output, session){
+  output$map_container &lt;- renderMap({
+    plotMap(input$network)
+  })
+})
+</code></pre>
+
+<h4>Credits</h4>
+
+<ol>
+<li><a href="http://leafletjs.com">Vladimir Agafonkin</a> for Leaflet.</li>
+<li><a href="http://citybik.es/">CitiBikes</a> for easy access to data.</li>
+<li><a href="http://github.com/jcheng5">Joe Cheng</a> and RStudio for Shiny.</li>
+<li><a href="http://github.com/timelyportfolio">Kenton Russell</a> and <a href="http://github.com/reinholdsson">Thomas Reinholdsson</a> for some awesome work on rCharts.</li>
+<li><a href="http://github.com/yihui">Yihui Xie</a> for knitr.</li>
+<li><a href="http://github.com/yihui">Hadley Wickhaw</a> for httr and several other packages.</li>
+</ol>
+
+      </section>
+      <footer>
+        <p>Maintained by <a href="http://github.com/ramnathv">
+          Ramnath Vaidyanathan
+        </a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by 
+          <a href="https://github.com/orderedlist">orderedlist</a></small>
+        </p>
+      </footer>    </div>
+    <script src="libraries/frameworks/minimal/javascripts/scale.fix.js"></script>
+  </body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- Google Prettify -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+  <script src='libraries/highlighters/prettify/js/lang-r.js'></script>
+  <script>
+    var pres = document.getElementsByTagName("pre");
+    for (var i=0; i < pres.length; ++i) {
+      pres[i].className = "prettyprint linenums";
+    }
+    prettyPrint();
+  </script>
+  <!-- End Google Prettify --> 
+  </html>
