@@ -214,7 +214,7 @@ shinyServer(function(input, output, session){
 3. [Joe Cheng](http://github.com/jcheng5) and RStudio for Shiny.
 4. [Kenton Russell](http://github.com/timelyportfolio) and [Thomas Reinholdsson](http://github.com/reinholdsson) for some awesome work on rCharts.
 5. [Yihui Xie](http://github.com/yihui) for knitr.
-6. [Hadley Wickhaw](http://github.com/yihui) for httr and several other packages.
+6. [Hadley Wickham](http://github.com/yihui) for httr and several other packages.
 
 
 
