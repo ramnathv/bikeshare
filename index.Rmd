@@ -112,7 +112,7 @@ The server side code is even simpler than the UI and merely wraps the `plotMap` 
 ```
 
 
-#### Credits
+### Acknowledgements
 
 1. [Vladimir Agafonkin](http://leafletjs.com) for Leaflet.
 2. [CitiBikes](http://citybik.es/) for easy access to data.
