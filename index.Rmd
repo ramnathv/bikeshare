@@ -97,7 +97,7 @@ Now that we have successfully visualized the bike sharing system for NYC, we can
 
 This is the easiest part of the whole tutorial. Shiny requires two files `ui.R` and `server.R`, that contain the UI and server logic respectively.
 
-For the UI, I make use of a basic bootstrap page that ships with Shiny. The first three lines add links to a custom style file and javascript file that allow me to add a collapsible __credits__ box at the bottom left of the page. I use a `selectInput` for users to select the network they want to visualize, and populate it with an alphabetically sorted list of names of all the networks, initialized to `citibikenyc`. Finally, I use the `mapOutput` function which adds a div containter named `map_container` that houses the map.
+For the UI, I make use of a basic bootstrap page that ships with Shiny. Lines 5 - 7 add links to a custom style file and javascript file that allow me to add a collapsible __credits__ box at the bottom left of the page. I use a `selectInput` for users to select the network they want to visualize, and populate it with an alphabetically sorted list of names of all the networks, initialized to `citibikenyc`. Finally, I use the `mapOutput` function which adds a div containter named `map_container` that houses the map.
 
 
 ```{r ref.label = 'ui', eval = F}
