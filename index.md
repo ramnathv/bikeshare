@@ -27,7 +27,7 @@ assets:
 <a class="addthis_counter addthis_pill_style"></a>
 </div>
 <script type="text/javascript">
-  var addthis_config = {"data_track_addressbar":true};
+  var addthis_config = {"data_track_addressbar":false};
 </script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4fdfcfd4773d48d3"></script>
 <!-- AddThis Button END -->
