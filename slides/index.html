@@ -13,7 +13,8 @@
     media="only screen and (max-device-width: 480px)" >
   <link rel="stylesheet" href="../libraries/frameworks/io2012/css/slidify.css" >
   <link rel="stylesheet" href="../libraries/highlighters/highlight.js/css/solarized_light.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Sans"></link>
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="../libraries/widgets/bootstrap/css/bootstrap.css"></link>
+<link rel=stylesheet href="http://fonts.googleapis.com/css?family=PT+Sans"></link>
 
   
   <!-- Grab CDN jQuery, fall back to local if offline -->
@@ -111,16 +112,16 @@ bike = fromJSON(content(GET(url)))
 [1] &quot;W 52 St &amp; 11 Ave&quot;
 
 $timestamp
-[1] &quot;2013-07-25T18:49:58.382763&quot;
+[1] &quot;2013-07-25T21:36:11.035627&quot;
 
 $number
 [1] 72
 
 $free
-[1] 36
+[1] 27
 
 $bikes
-[1] 3
+[1] 11
 
 $address
 [1] &quot;W 52 St &amp; 11 Ave&quot;
@@ -185,17 +186,17 @@ $address
     <h3>HTML</h3>
 
 <pre><code>&lt;b&gt;W 52 St &amp;amp; 11 Ave&lt;/b&gt;&lt;br&gt;
-&lt;b&gt;Free Docks: &lt;/b&gt; 36 &lt;br&gt;
-&lt;b&gt;Available Bikes:&lt;/b&gt; 3
-&lt;b&gt;Retrieved At: 2013-07-25T18:49:58.382763&lt;/b&gt;
+&lt;b&gt;Free Docks: &lt;/b&gt; 27 &lt;br&gt;
+&lt;b&gt;Available Bikes:&lt;/b&gt; 11
+&lt;b&gt;Retrieved At: 2013-07-25T21:36:11.035627&lt;/b&gt;
 </code></pre>
 
 <h3>View</h3>
 
 <p><b>W 52 St &amp; 11 Ave</b><br>
-<b>Free Docks: </b> 36 <br>
-<b>Available Bikes:</b> 3
-<b>Retrieved At: 2013-07-25T18:49:58.382763</b></p>
+<b>Free Docks: </b> 27 <br>
+<b>Available Bikes:</b> 11
+<b>Retrieved At: 2013-07-25T21:36:11.035627</b></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -315,7 +316,7 @@ L1$geoJson(toGeoJSON(data_))
     })
   }!#&quot;
 )
-L1$save(&#39;maps/map3.html&#39;)
+L1$save(&#39;maps/map3.html&#39;, cdn = TRUE)
 </code></pre>
 
   </article>
@@ -349,7 +350,7 @@ L1$save(&#39;maps/map3.html&#39;)
     })
   } !#&quot;
 )
-L1$save(&#39;maps/map4.html&#39;)
+L1$save(&#39;maps/map4.html&#39;, cdn = TRUE)
 </code></pre>
 
   </article>
@@ -608,7 +609,15 @@ shinyServer(function(input, output, session){
   <![endif]-->
 </body>
   <!-- Load Javascripts for Widgets -->
-  
+  <script src="../libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+
+  <script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
   <!-- LOAD HIGHLIGHTER JS FILES -->
   <script src="../libraries/highlighters/highlight.js/highlight.pack.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>

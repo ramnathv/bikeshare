@@ -9,6 +9,7 @@ hitheme: solarized_light
 assets:
   css: "http://fonts.googleapis.com/css?family=PT+Sans"
 url: {lib: "../libraries"}
+widgets: [bootstrap]
 ---
 
 <a href="http://glimmer.rstudio.com/ramnathv/BikeShare" style='border-bottom:none;'>
@@ -59,16 +60,16 @@ $name
 [1] "W 52 St & 11 Ave"
 
 $timestamp
-[1] "2013-07-25T18:49:58.382763"
+[1] "2013-07-25T21:36:11.035627"
 
 $number
 [1] 72
 
 $free
-[1] 36
+[1] 27
 
 $bikes
-[1] 3
+[1] 11
 
 $address
 [1] "W 52 St & 11 Ave"
@@ -123,18 +124,18 @@ bike <- lapply(bike, function(station){within(station, {
 
 ```
 <b>W 52 St &amp; 11 Ave</b><br>
-<b>Free Docks: </b> 36 <br>
-<b>Available Bikes:</b> 3
-<b>Retrieved At: 2013-07-25T18:49:58.382763</b>
+<b>Free Docks: </b> 27 <br>
+<b>Available Bikes:</b> 11
+<b>Retrieved At: 2013-07-25T21:36:11.035627</b>
 ```
 
 
 ### View
 
 <b>W 52 St &amp; 11 Ave</b><br>
-<b>Free Docks: </b> 36 <br>
-<b>Available Bikes:</b> 3
-<b>Retrieved At: 2013-07-25T18:49:58.382763</b>
+<b>Free Docks: </b> 27 <br>
+<b>Available Bikes:</b> 11
+<b>Retrieved At: 2013-07-25T21:36:11.035627</b>
 
 
 ---
@@ -230,7 +231,7 @@ L1$geoJson(toGeoJSON(data_),
     })
   }!#"
 )
-L1$save('maps/map3.html')
+L1$save('maps/map3.html', cdn = TRUE)
 ```
 
 
@@ -258,7 +259,7 @@ L1$geoJson(toGeoJSON(data_),
     })
   } !#"
 )
-L1$save('maps/map4.html')
+L1$save('maps/map4.html', cdn = TRUE)
 ```
 
 
