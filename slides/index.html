@@ -121,16 +121,16 @@ bike = fromJSON(content(GET(url)))
 [1] &quot;W 52 St &amp; 11 Ave&quot;
 
 $timestamp
-[1] &quot;2013-07-25T21:36:11.035627&quot;
+[1] &quot;2013-07-25T23:36:57.281368&quot;
 
 $number
 [1] 72
 
 $free
-[1] 27
+[1] 30
 
 $bikes
-[1] 11
+[1] 8
 
 $address
 [1] &quot;W 52 St &amp; 11 Ave&quot;
@@ -153,12 +153,6 @@ $address
     include.lowest = TRUE
   )})
 })
-</code></pre>
-
-<pre><code>## Warning: internal error -3 in R_decompress1
-</code></pre>
-
-<pre><code>## Error: lazy-load database &#39;P&#39; is corrupt
 </code></pre>
 
   </article>
@@ -203,17 +197,17 @@ $address
     <h3>HTML</h3>
 
 <pre><code>&lt;b&gt;W 52 St &amp;amp; 11 Ave&lt;/b&gt;&lt;br&gt;
-&lt;b&gt;Free Docks: &lt;/b&gt; 27 &lt;br&gt;
-&lt;b&gt;Available Bikes:&lt;/b&gt; 11
-&lt;b&gt;Retrieved At: 2013-07-25T21:36:11.035627&lt;/b&gt;
+&lt;b&gt;Free Docks: &lt;/b&gt; 30 &lt;br&gt;
+&lt;b&gt;Available Bikes:&lt;/b&gt; 8
+&lt;b&gt;Retrieved At: 2013-07-25T23:36:57.281368&lt;/b&gt;
 </code></pre>
 
 <h3>View</h3>
 
 <p><b>W 52 St &amp; 11 Ave</b><br>
-<b>Free Docks: </b> 27 <br>
-<b>Available Bikes:</b> 11
-<b>Retrieved At: 2013-07-25T21:36:11.035627</b></p>
+<b>Free Docks: </b> 30 <br>
+<b>Available Bikes:</b> 8
+<b>Retrieved At: 2013-07-25T23:36:57.281368</b></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -302,18 +296,7 @@ L1$set(width = 1200, height = 600)
   </hgroup>
   <article data-timings="">
     <pre><code class="r">data_ &lt;- getData(&#39;citibikenyc&#39;)
-</code></pre>
-
-<pre><code>## Warning: internal error -3 in R_decompress1
-</code></pre>
-
-<pre><code>## Error: lazy-load database &#39;P&#39; is corrupt
-</code></pre>
-
-<pre><code class="r">L1$geoJson(toGeoJSON(data_))
-</code></pre>
-
-<pre><code>## Error: object &#39;data_&#39; not found
+L1$geoJson(toGeoJSON(data_))
 </code></pre>
 
   </article>
@@ -344,12 +327,7 @@ L1$set(width = 1200, height = 600)
     })
   }!#&quot;
 )
-</code></pre>
-
-<pre><code>## Error: object &#39;data_&#39; not found
-</code></pre>
-
-<pre><code class="r">L1$save(&#39;maps/map3.html&#39;, cdn = TRUE)
+L1$save(&#39;maps/map3.html&#39;, cdn = TRUE)
 </code></pre>
 
   </article>

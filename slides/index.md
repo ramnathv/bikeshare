@@ -69,16 +69,16 @@ $name
 [1] "W 52 St & 11 Ave"
 
 $timestamp
-[1] "2013-07-25T21:36:11.035627"
+[1] "2013-07-25T23:36:57.281368"
 
 $number
 [1] 72
 
 $free
-[1] 27
+[1] 30
 
 $bikes
-[1] 11
+[1] 8
 
 $address
 [1] "W 52 St & 11 Ave"
@@ -99,14 +99,6 @@ bike <- lapply(bike, function(station){within(station, {
     include.lowest = TRUE
   )})
 })
-```
-
-```
-## Warning: internal error -3 in R_decompress1
-```
-
-```
-## Error: lazy-load database 'P' is corrupt
 ```
 
 
@@ -143,18 +135,18 @@ Here, we loop through all the stations, and add a popup that displays fields of 
 
 ```
 <b>W 52 St &amp; 11 Ave</b><br>
-<b>Free Docks: </b> 27 <br>
-<b>Available Bikes:</b> 11
-<b>Retrieved At: 2013-07-25T21:36:11.035627</b>
+<b>Free Docks: </b> 30 <br>
+<b>Available Bikes:</b> 8
+<b>Retrieved At: 2013-07-25T23:36:57.281368</b>
 ```
 
 
 ### View
 
 <b>W 52 St &amp; 11 Ave</b><br>
-<b>Free Docks: </b> 27 <br>
-<b>Available Bikes:</b> 11
-<b>Retrieved At: 2013-07-25T21:36:11.035627</b>
+<b>Free Docks: </b> 30 <br>
+<b>Available Bikes:</b> 8
+<b>Retrieved At: 2013-07-25T23:36:57.281368</b>
 
 
 ---
@@ -225,22 +217,7 @@ L1$set(width = 1200, height = 600)
 
 ```r
 data_ <- getData('citibikenyc')
-```
-
-```
-## Warning: internal error -3 in R_decompress1
-```
-
-```
-## Error: lazy-load database 'P' is corrupt
-```
-
-```r
 L1$geoJson(toGeoJSON(data_))
-```
-
-```
-## Error: object 'data_' not found
 ```
 
 
@@ -265,13 +242,6 @@ L1$geoJson(toGeoJSON(data_),
     })
   }!#"
 )
-```
-
-```
-## Error: object 'data_' not found
-```
-
-```r
 L1$save('maps/map3.html', cdn = TRUE)
 ```
 
