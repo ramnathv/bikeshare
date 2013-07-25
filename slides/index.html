@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bike Sharing Systems</title>
+  <title>Bike Sharing</title>
   <meta charset="utf-8">
-  <meta name="description" content="Bike Sharing Systems">
+  <meta name="description" content="Bike Sharing">
   <meta name="author" content="Ramnath Vaidyanathan">
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,7 +24,8 @@
     src="../libraries/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-  
+  <script src="lazyload.min.js"></script>
+
 
 </head>
 <body style="opacity: 0">
@@ -33,8 +34,8 @@
     <!-- LOGO SLIDE -->
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
-    <h1>Bike Sharing Systems</h1>
-    <h2>rCharts + Shiny</h2>
+    <h1>Bike Sharing</h1>
+    <h2>Visualized</h2>
     <p>Ramnath Vaidyanathan<br/></p>
   </hgroup>
     <a href="https://github.com/ramnathv/bikeshare/zipball/gh-pages" class="example">
@@ -46,11 +47,22 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Building Interactive Visualizations</h2>
+  </hgroup>
   <article data-timings="">
-    <p><a href="http://glimmer.rstudio.com/ramnathv/BikeShare" style='border-bottom:none;'>
-  <img src=http://www.clipular.com/c?10951071=aD5PWoWf3MjZaDGbvSxV7ZyIeM4&f=.png>
-  </img>
-</a></p>
+    <ol class = "build incremental">
+<li>Get Data.</li>
+<li>Create Visualization.</li>
+<li>Wrap in Shiny/AngularJS!</li>
+</ol>
+
+<style>
+.title-slide {
+  background: url(http://www.clipular.com/c?11569005=BeLkjndQT6SwPyFOh-ybbS9Q-V0&f=.png);
+  opacity: 0.5;
+}
+</style>
 
   </article>
   <!-- Presenter Notes -->
@@ -62,22 +74,7 @@
   </aside>
 </slide>
 
-<slide class="" id="slide-2" style="background:;">
-  <hgroup>
-    <h2>Building Interactive Visualizations</h2>
-  </hgroup>
-  <article data-timings="">
-    <ol class = "build incremental">
-<li>Get Data.</li>
-<li>Create Visualization.</li>
-<li>Wrap in Shiny/AngularJS!</li>
-</ol>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="segue dark" id="slide-3" style="background:;">
+<slide class="segue dark" id="slide-2" style="background:;">
   <hgroup>
     <h2>Get Data</h2>
   </hgroup>
@@ -87,7 +84,7 @@
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-4" style="background:;">
+<slide class="bigger" id="slide-3" style="background:;">
   <hgroup>
     <h2>Fetch Data</h2>
   </hgroup>
@@ -101,9 +98,21 @@ bike = fromJSON(content(GET(url)))
 
   </article>
   <!-- Presenter Notes -->
+  <aside class="note" id="">
+    <section>
+      <p>We use the API provide by <a href="&#x27;http://api.citybik.es/&#x27;">CitiBikes</a> to fetch our data. There are three steps</p>
+
+<ol>
+<li><code>GET</code> fetches the data using a GET request.</li>
+<li><code>content</code> extracts the json content from the data.</li>
+<li><code>fromJSON</code> converts it into an R object (list).</li>
+</ol>
+
+    </section>
+  </aside>
 </slide>
 
-<slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Inspect Data</h2>
   </hgroup>
@@ -131,7 +140,7 @@ $address
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-6" style="background:;">
+<slide class="bigger" id="slide-5" style="background:;">
   <hgroup>
     <h2>Add FillColor</h2>
   </hgroup>
@@ -146,11 +155,17 @@ $address
 })
 </code></pre>
 
+<pre><code>## Warning: internal error -3 in R_decompress1
+</code></pre>
+
+<pre><code>## Error: lazy-load database &#39;P&#39; is corrupt
+</code></pre>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-7" style="background:;">
+<slide class="bigger" id="slide-6" style="background:;">
   <hgroup>
     <h2>Add Popup</h2>
   </hgroup>
@@ -169,16 +184,18 @@ $address
   <!-- Presenter Notes -->
   <aside class="note" id="">
     <section>
-      <ol>
-<li>We specify a <code>mustache</code> template and render it with data for each station. </li>
-<li>The <code>iconv</code> function converts the resulting string to <code>UTF-8</code> and avoid encoding issues in the browser.</li>
+      <p>Here, we loop through all the stations, and add a popup that displays fields of interest. More specifically, we</p>
+
+<ol>
+<li>Specify a <code>mustache</code> template and render it with data for each station. </li>
+<li>Convert the resulting string to <code>UTF-8</code> using <code>iconv</code> to avoid encoding issues in the browser.</li>
 </ol>
 
     </section>
   </aside>
 </slide>
 
-<slide class="bigger" id="slide-8" style="background:;">
+<slide class="bigger" id="slide-7" style="background:;">
   <hgroup>
     <h2>Sample Popup</h2>
   </hgroup>
@@ -202,7 +219,7 @@ $address
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <article data-timings="">
     <p><a class='example'>getData</a></p>
 
@@ -234,7 +251,7 @@ $address
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="segue nobackground dark" id="slide-10" style="background:;">
+<slide class="segue nobackground dark" id="slide-9" style="background:;">
   <hgroup>
     <h2>Create Visualization</h2>
   </hgroup>
@@ -244,7 +261,7 @@ $address
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-11" style="background:;">
+<slide class="bigger" id="slide-10" style="background:;">
   <hgroup>
     <h2>Basic Map</h2>
   </hgroup>
@@ -271,36 +288,47 @@ L1$set(width = 1200, height = 600)
   </aside>
 </slide>
 
-<slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <article data-timings="">
-    <iframe src='maps/map1.html' seamless></iframe>
+    <iframe data-src='maps/map1.html' seamless onload=lzld(this)></iframe>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-13" style="background:;">
+<slide class="bigger" id="slide-12" style="background:;">
   <hgroup>
     <h2>Add Stations</h2>
   </hgroup>
   <article data-timings="">
     <pre><code class="r">data_ &lt;- getData(&#39;citibikenyc&#39;)
-L1$geoJson(toGeoJSON(data_))
+</code></pre>
+
+<pre><code>## Warning: internal error -3 in R_decompress1
+</code></pre>
+
+<pre><code>## Error: lazy-load database &#39;P&#39; is corrupt
+</code></pre>
+
+<pre><code class="r">L1$geoJson(toGeoJSON(data_))
+</code></pre>
+
+<pre><code>## Error: object &#39;data_&#39; not found
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <article data-timings="">
-    <iframe src='maps/map2.html' seamless></iframe>
+    <iframe data-src='maps/map2.html' seamless onload=lzld(this)></iframe>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-15" style="background:;">
+<slide class="bigger" id="slide-14" style="background:;">
   <hgroup>
     <h2>Style Points</h2>
   </hgroup>
@@ -316,22 +344,27 @@ L1$geoJson(toGeoJSON(data_))
     })
   }!#&quot;
 )
-L1$save(&#39;maps/map3.html&#39;, cdn = TRUE)
+</code></pre>
+
+<pre><code>## Error: object &#39;data_&#39; not found
+</code></pre>
+
+<pre><code class="r">L1$save(&#39;maps/map3.html&#39;, cdn = TRUE)
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <article data-timings="">
-    <iframe src='maps/map3.html' seamless></iframe>
+    <iframe data-src='maps/map3.html' seamless onload=lzld(this)></iframe>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-17" style="background:;">
+<slide class="bigger" id="slide-16" style="background:;">
   <hgroup>
     <h2>Add Popup</h2>
   </hgroup>
@@ -357,15 +390,15 @@ L1$save(&#39;maps/map4.html&#39;, cdn = TRUE)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <article data-timings="">
-    <iframe src='maps/map4.html' seamless></iframe>
+    <iframe data-src='maps/map4.html' seamless onload=lzld(this)></iframe>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <article data-timings="">
     <p><a class='example'>plotMap</a></p>
 
@@ -398,7 +431,7 @@ L1$save(&#39;maps/map4.html&#39;, cdn = TRUE)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="segue dark nobackground" id="slide-20" style="background:;">
+<slide class="segue dark nobackground" id="slide-19" style="background:;">
   <hgroup>
     <h2>Wrap in Shiny</h2>
   </hgroup>
@@ -416,7 +449,7 @@ L1$save(&#39;maps/map4.html&#39;, cdn = TRUE)
   </aside>
 </slide>
 
-<slide class="bigger" id="slide-21" style="background:;">
+<slide class="bigger" id="slide-20" style="background:;">
   <hgroup>
     <h2>UI</h2>
   </hgroup>
@@ -440,7 +473,7 @@ shinyUI(bootstrapPage(
   </aside>
 </slide>
 
-<slide class="bigger" id="slide-22" style="background:;">
+<slide class="bigger" id="slide-21" style="background:;">
   <hgroup>
     <h2>Server</h2>
   </hgroup>
@@ -470,103 +503,103 @@ shinyServer(function(input, output, session){
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title=''>
+        data-slide=1 title='Building Interactive Visualizations'>
          1
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Building Interactive Visualizations'>
+        data-slide=2 title='Get Data'>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Get Data'>
+        data-slide=3 title='Fetch Data'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Fetch Data'>
+        data-slide=4 title='Inspect Data'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Inspect Data'>
+        data-slide=5 title='Add FillColor'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Add FillColor'>
+        data-slide=6 title='Add Popup'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Add Popup'>
+        data-slide=7 title='Sample Popup'>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Sample Popup'>
+        data-slide=8 title=''>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title=''>
+        data-slide=9 title='Create Visualization'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='Create Visualization'>
+        data-slide=10 title='Basic Map'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='Basic Map'>
+        data-slide=11 title=''>
          11
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title=''>
+        data-slide=12 title='Add Stations'>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='Add Stations'>
+        data-slide=13 title=''>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title=''>
+        data-slide=14 title='Style Points'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Style Points'>
+        data-slide=15 title=''>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title=''>
+        data-slide=16 title='Add Popup'>
          16
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='Add Popup'>
+        data-slide=17 title=''>
          17
       </a>
     </li>
@@ -578,26 +611,20 @@ shinyServer(function(input, output, session){
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=19 title=''>
+        data-slide=19 title='Wrap in Shiny'>
          19
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='Wrap in Shiny'>
+        data-slide=20 title='UI'>
          20
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=21 title='UI'>
+        data-slide=21 title='Server'>
          21
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=22 title='Server'>
-         22
       </a>
     </li>
   </ul>

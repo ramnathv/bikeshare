@@ -1,6 +1,6 @@
 ---
-title: Bike Sharing Systems
-subtitle: rCharts + Shiny
+title: Bike Sharing
+subtitle: Visualized
 author: Ramnath Vaidyanathan
 github: {user: ramnathv, repo: bikeshare, branch: "gh-pages"}
 framework: io2012
@@ -8,26 +8,27 @@ mode: selfcontained
 hitheme: solarized_light
 assets:
   css: "http://fonts.googleapis.com/css?family=PT+Sans"
+  jshead: lazyload.min.js
 url: {lib: "../libraries"}
 widgets: [bootstrap]
----
-
-<a href="http://glimmer.rstudio.com/ramnathv/BikeShare" style='border-bottom:none;'>
-  <img src=http://www.clipular.com/c?10951071=aD5PWoWf3MjZaDGbvSxV7ZyIeM4&f=.png>
-  </img>
-</a>
-
-*** =pnotes
-
-A couple of months ago I had posted an interesting application of using rCharts and Shiny to visualize the CitiBike system in NYC. I had always wanted to write a tutorial about its inner workings, so that it would be useful to others looking to build similar visualizations, and I finally got around to doing it. Along the way, I managed to extend the visualization to around 100 bike sharing systems across the world. The final application can be viewed [here](http://glimmer.rstudio.com/ramnathv/BikeShare). 
-
----
+--- 
 
 ## Building Interactive Visualizations
 
 > 1. Get Data.
 > 2. Create Visualization.
 > 3. Wrap in Shiny/AngularJS!
+
+<style>
+.title-slide {
+  background: url(http://www.clipular.com/c?11569005=BeLkjndQT6SwPyFOh-ybbS9Q-V0&f=.png);
+  opacity: 0.5;
+}
+</style>
+
+*** =pnotes
+
+A couple of months ago I had posted an interesting application of using rCharts and Shiny to visualize the CitiBike system in NYC. I had always wanted to write a tutorial about its inner workings, so that it would be useful to others looking to build similar visualizations, and I finally got around to doing it. Along the way, I managed to extend the visualization to around 100 bike sharing systems across the world. The final application can be viewed [here](http://glimmer.rstudio.com/ramnathv/BikeShare). 
 
 --- .segue .dark
 
@@ -49,6 +50,14 @@ url = sprintf('http://api.citybik.es/%s.json', network)
 bike = fromJSON(content(GET(url)))
 ```
 
+
+*** =pnotes
+
+We use the API provide by [CitiBikes]('http://api.citybik.es/') to fetch our data. There are three steps
+
+1. `GET` fetches the data using a GET request.
+2. `content` extracts the json content from the data.
+3. `fromJSON` converts it into an R object (list).
 
 ---
 
@@ -92,6 +101,14 @@ bike <- lapply(bike, function(station){within(station, {
 })
 ```
 
+```
+## Warning: internal error -3 in R_decompress1
+```
+
+```
+## Error: lazy-load database 'P' is corrupt
+```
+
 
 --- .bigger
 
@@ -112,8 +129,10 @@ bike <- lapply(bike, function(station){within(station, {
 
 *** =pnotes
 
-1. We specify a `mustache` template and render it with data for each station. 
-2. The `iconv` function converts the resulting string to `UTF-8` and avoid encoding issues in the browser.
+Here, we loop through all the stations, and add a popup that displays fields of interest. More specifically, we
+
+1. Specify a `mustache` template and render it with data for each station. 
+2. Convert the resulting string to `UTF-8` using `iconv` to avoid encoding issues in the browser.
 
 --- .bigger
 
@@ -197,7 +216,7 @@ L1$set(width = 1200, height = 600)
 
 ---
 
-<iframe src='maps/map1.html' seamless></iframe>
+<iframe data-src='maps/map1.html' seamless onload=lzld(this)></iframe>
 
 --- .bigger
 
@@ -206,13 +225,28 @@ L1$set(width = 1200, height = 600)
 
 ```r
 data_ <- getData('citibikenyc')
+```
+
+```
+## Warning: internal error -3 in R_decompress1
+```
+
+```
+## Error: lazy-load database 'P' is corrupt
+```
+
+```r
 L1$geoJson(toGeoJSON(data_))
+```
+
+```
+## Error: object 'data_' not found
 ```
 
 
 ---
 
-<iframe src='maps/map2.html' seamless></iframe>
+<iframe data-src='maps/map2.html' seamless onload=lzld(this)></iframe>
 
 --- .bigger
 
@@ -231,13 +265,20 @@ L1$geoJson(toGeoJSON(data_),
     })
   }!#"
 )
+```
+
+```
+## Error: object 'data_' not found
+```
+
+```r
 L1$save('maps/map3.html', cdn = TRUE)
 ```
 
 
 ---
 
-<iframe src='maps/map3.html' seamless></iframe>
+<iframe data-src='maps/map3.html' seamless onload=lzld(this)></iframe>
 
 --- .bigger
 
@@ -265,7 +306,7 @@ L1$save('maps/map4.html', cdn = TRUE)
 
 ---
 
-<iframe src='maps/map4.html' seamless></iframe>
+<iframe data-src='maps/map4.html' seamless onload=lzld(this)></iframe>
 
 ---
 
