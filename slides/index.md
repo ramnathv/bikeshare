@@ -39,6 +39,21 @@ A couple of months ago I had posted an interesting application of using rCharts 
 
 --- .bigger
 
+## Load Libraries
+
+
+```r
+options(stringsAsFactors = F)
+library(RJSONIO)
+library(RColorBrewer)
+library(httr)
+library(rCharts)
+```
+
+
+
+--- .bigger
+
 ## Fetch Data
 
 <style>slide.bigger pre {font-size: 24px; line-height: 1.5em;}</style>
@@ -69,13 +84,13 @@ $name
 [1] "W 52 St & 11 Ave"
 
 $timestamp
-[1] "2013-07-25T23:36:57.281368"
+[1] "2013-07-26T00:40:44.411321"
 
 $number
 [1] 72
 
 $free
-[1] 30
+[1] 31
 
 $bikes
 [1] 8
@@ -112,8 +127,8 @@ bike <- lapply(bike, function(station){within(station, {
    popup = iconv(whisker::whisker.render(
 '<b>{{name}}</b><br>
 <b>Free Docks: </b> {{free}} <br>
-<b>Available Bikes:</b> {{bikes}}
-<b>Retrieved At: {{timestamp}}</b>'
+<b>Available Bikes:</b> {{bikes}}<br>
+<b>Retrieved At:</b> {{timestamp}}'
    ), from = 'latin1', to = 'UTF-8')})
 }) 
 ```
@@ -135,18 +150,18 @@ Here, we loop through all the stations, and add a popup that displays fields of 
 
 ```
 <b>W 52 St &amp; 11 Ave</b><br>
-<b>Free Docks: </b> 30 <br>
-<b>Available Bikes:</b> 8
-<b>Retrieved At: 2013-07-25T23:36:57.281368</b>
+<b>Free Docks: </b> 31 <br>
+<b>Available Bikes:</b> 8<br>
+<b>Retrieved At:</b> 2013-07-26T00:40:44.411321
 ```
 
 
 ### View
 
 <b>W 52 St &amp; 11 Ave</b><br>
-<b>Free Docks: </b> 30 <br>
-<b>Available Bikes:</b> 8
-<b>Retrieved At: 2013-07-25T23:36:57.281368</b>
+<b>Free Docks: </b> 31 <br>
+<b>Available Bikes:</b> 8<br>
+<b>Retrieved At:</b> 2013-07-26T00:40:44.411321
 
 
 ---

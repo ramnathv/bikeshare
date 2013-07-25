@@ -86,6 +86,22 @@
 
 <slide class="bigger" id="slide-3" style="background:;">
   <hgroup>
+    <h2>Load Libraries</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">options(stringsAsFactors = F)
+library(RJSONIO)
+library(RColorBrewer)
+library(httr)
+library(rCharts)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="bigger" id="slide-4" style="background:;">
+  <hgroup>
     <h2>Fetch Data</h2>
   </hgroup>
   <article data-timings="">
@@ -112,7 +128,7 @@ bike = fromJSON(content(GET(url)))
   </aside>
 </slide>
 
-<slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Inspect Data</h2>
   </hgroup>
@@ -121,13 +137,13 @@ bike = fromJSON(content(GET(url)))
 [1] &quot;W 52 St &amp; 11 Ave&quot;
 
 $timestamp
-[1] &quot;2013-07-25T23:36:57.281368&quot;
+[1] &quot;2013-07-26T00:40:44.411321&quot;
 
 $number
 [1] 72
 
 $free
-[1] 30
+[1] 31
 
 $bikes
 [1] 8
@@ -140,7 +156,7 @@ $address
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-5" style="background:;">
+<slide class="bigger" id="slide-6" style="background:;">
   <hgroup>
     <h2>Add FillColor</h2>
   </hgroup>
@@ -159,7 +175,7 @@ $address
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-6" style="background:;">
+<slide class="bigger" id="slide-7" style="background:;">
   <hgroup>
     <h2>Add Popup</h2>
   </hgroup>
@@ -168,8 +184,8 @@ $address
    popup = iconv(whisker::whisker.render(
 &#39;&lt;b&gt;&lt;/b&gt;&lt;br&gt;
 &lt;b&gt;Free Docks: &lt;/b&gt;  &lt;br&gt;
-&lt;b&gt;Available Bikes:&lt;/b&gt; 
-&lt;b&gt;Retrieved At: &lt;/b&gt;&#39;
+&lt;b&gt;Available Bikes:&lt;/b&gt; &lt;br&gt;
+&lt;b&gt;Retrieved At:&lt;/b&gt; &#39;
    ), from = &#39;latin1&#39;, to = &#39;UTF-8&#39;)})
 }) 
 </code></pre>
@@ -189,7 +205,7 @@ $address
   </aside>
 </slide>
 
-<slide class="bigger" id="slide-7" style="background:;">
+<slide class="bigger" id="slide-8" style="background:;">
   <hgroup>
     <h2>Sample Popup</h2>
   </hgroup>
@@ -197,23 +213,23 @@ $address
     <h3>HTML</h3>
 
 <pre><code>&lt;b&gt;W 52 St &amp;amp; 11 Ave&lt;/b&gt;&lt;br&gt;
-&lt;b&gt;Free Docks: &lt;/b&gt; 30 &lt;br&gt;
-&lt;b&gt;Available Bikes:&lt;/b&gt; 8
-&lt;b&gt;Retrieved At: 2013-07-25T23:36:57.281368&lt;/b&gt;
+&lt;b&gt;Free Docks: &lt;/b&gt; 31 &lt;br&gt;
+&lt;b&gt;Available Bikes:&lt;/b&gt; 8&lt;br&gt;
+&lt;b&gt;Retrieved At:&lt;/b&gt; 2013-07-26T00:40:44.411321
 </code></pre>
 
 <h3>View</h3>
 
 <p><b>W 52 St &amp; 11 Ave</b><br>
-<b>Free Docks: </b> 30 <br>
-<b>Available Bikes:</b> 8
-<b>Retrieved At: 2013-07-25T23:36:57.281368</b></p>
+<b>Free Docks: </b> 31 <br>
+<b>Available Bikes:</b> 8<br>
+<b>Retrieved At:</b> 2013-07-26T00:40:44.411321</p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <article data-timings="">
     <p><a class='example'>getData</a></p>
 
@@ -245,7 +261,7 @@ $address
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="segue nobackground dark" id="slide-9" style="background:;">
+<slide class="segue nobackground dark" id="slide-10" style="background:;">
   <hgroup>
     <h2>Create Visualization</h2>
   </hgroup>
@@ -255,7 +271,7 @@ $address
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-10" style="background:;">
+<slide class="bigger" id="slide-11" style="background:;">
   <hgroup>
     <h2>Basic Map</h2>
   </hgroup>
@@ -282,7 +298,7 @@ L1$set(width = 1200, height = 600)
   </aside>
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <article data-timings="">
     <iframe data-src='maps/map1.html' seamless onload=lzld(this)></iframe>
 
@@ -290,7 +306,7 @@ L1$set(width = 1200, height = 600)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-12" style="background:;">
+<slide class="bigger" id="slide-13" style="background:;">
   <hgroup>
     <h2>Add Stations</h2>
   </hgroup>
@@ -303,7 +319,7 @@ L1$geoJson(toGeoJSON(data_))
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <article data-timings="">
     <iframe data-src='maps/map2.html' seamless onload=lzld(this)></iframe>
 
@@ -311,7 +327,7 @@ L1$geoJson(toGeoJSON(data_))
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-14" style="background:;">
+<slide class="bigger" id="slide-15" style="background:;">
   <hgroup>
     <h2>Style Points</h2>
   </hgroup>
@@ -334,7 +350,7 @@ L1$save(&#39;maps/map3.html&#39;, cdn = TRUE)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <article data-timings="">
     <iframe data-src='maps/map3.html' seamless onload=lzld(this)></iframe>
 
@@ -342,7 +358,7 @@ L1$save(&#39;maps/map3.html&#39;, cdn = TRUE)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="bigger" id="slide-16" style="background:;">
+<slide class="bigger" id="slide-17" style="background:;">
   <hgroup>
     <h2>Add Popup</h2>
   </hgroup>
@@ -368,7 +384,7 @@ L1$save(&#39;maps/map4.html&#39;, cdn = TRUE)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <article data-timings="">
     <iframe data-src='maps/map4.html' seamless onload=lzld(this)></iframe>
 
@@ -376,7 +392,7 @@ L1$save(&#39;maps/map4.html&#39;, cdn = TRUE)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <article data-timings="">
     <p><a class='example'>plotMap</a></p>
 
@@ -409,7 +425,7 @@ L1$save(&#39;maps/map4.html&#39;, cdn = TRUE)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="segue dark nobackground" id="slide-19" style="background:;">
+<slide class="segue dark nobackground" id="slide-20" style="background:;">
   <hgroup>
     <h2>Wrap in Shiny</h2>
   </hgroup>
@@ -427,7 +443,7 @@ L1$save(&#39;maps/map4.html&#39;, cdn = TRUE)
   </aside>
 </slide>
 
-<slide class="bigger" id="slide-20" style="background:;">
+<slide class="bigger" id="slide-21" style="background:;">
   <hgroup>
     <h2>UI</h2>
   </hgroup>
@@ -451,7 +467,7 @@ shinyUI(bootstrapPage(
   </aside>
 </slide>
 
-<slide class="bigger" id="slide-21" style="background:;">
+<slide class="bigger" id="slide-22" style="background:;">
   <hgroup>
     <h2>Server</h2>
   </hgroup>
@@ -493,91 +509,91 @@ shinyServer(function(input, output, session){
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Fetch Data'>
+        data-slide=3 title='Load Libraries'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Inspect Data'>
+        data-slide=4 title='Fetch Data'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Add FillColor'>
+        data-slide=5 title='Inspect Data'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Add Popup'>
+        data-slide=6 title='Add FillColor'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Sample Popup'>
+        data-slide=7 title='Add Popup'>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title=''>
+        data-slide=8 title='Sample Popup'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='Create Visualization'>
+        data-slide=9 title=''>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='Basic Map'>
+        data-slide=10 title='Create Visualization'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title=''>
+        data-slide=11 title='Basic Map'>
          11
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='Add Stations'>
+        data-slide=12 title=''>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title=''>
+        data-slide=13 title='Add Stations'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='Style Points'>
+        data-slide=14 title=''>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title=''>
+        data-slide=15 title='Style Points'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='Add Popup'>
+        data-slide=16 title=''>
          16
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title=''>
+        data-slide=17 title='Add Popup'>
          17
       </a>
     </li>
@@ -589,20 +605,26 @@ shinyServer(function(input, output, session){
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=19 title='Wrap in Shiny'>
+        data-slide=19 title=''>
          19
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='UI'>
+        data-slide=20 title='Wrap in Shiny'>
          20
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=21 title='Server'>
+        data-slide=21 title='UI'>
          21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Server'>
+         22
       </a>
     </li>
   </ul>
