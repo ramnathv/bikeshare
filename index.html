@@ -140,8 +140,7 @@ runGitHub(&quot;bikeshare&quot;, &quot;ramnathv&quot;, ref = &quot;gh-pages&quot
 </ol>
 
 <pre><code class="r">plotMap &lt;- function(network = &#39;citibikenyc&#39;, width = 1600, height = 800){
-  data_ &lt;- getData(network)
-  center_ &lt;- getCenter(network, networks)
+  data_ &lt;- getData(network); center_ &lt;- getCenter(network, networks)
   L1 &lt;- Leaflet$new()
   L1$tileLayer(provider = &#39;Stamen.TonerLite&#39;)
   L1$set(width = width, height = height)
@@ -158,8 +157,7 @@ runGitHub(&quot;bikeshare&quot;, &quot;ramnathv&quot;, ref = &quot;gh-pages&quot
         weight: 1,
         fillOpacity: 0.8
       })
-    } !#&quot;
-  )
+    } !#&quot;)
   L1$enablePopover(TRUE)
   L1$fullScreen(TRUE)
   return(L1)

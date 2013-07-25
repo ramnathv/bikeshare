@@ -54,8 +54,7 @@ getCenter <- function(nm, networks){
 
 ## @knitr plotMap
 plotMap <- function(network = 'citibikenyc', width = 1600, height = 800){
-  data_ <- getData(network)
-  center_ <- getCenter(network, networks)
+  data_ <- getData(network); center_ <- getCenter(network, networks)
   L1 <- Leaflet$new()
   L1$tileLayer(provider = 'Stamen.TonerLite')
   L1$set(width = width, height = height)
@@ -72,8 +71,7 @@ plotMap <- function(network = 'citibikenyc', width = 1600, height = 800){
         weight: 1,
         fillOpacity: 0.8
       })
-    } !#"
-  )
+    } !#")
   L1$enablePopover(TRUE)
   L1$fullScreen(TRUE)
   return(L1)
