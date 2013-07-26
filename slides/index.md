@@ -84,16 +84,16 @@ $name
 [1] "W 52 St & 11 Ave"
 
 $timestamp
-[1] "2013-07-26T00:40:44.411321"
+[1] "2013-07-26T03:34:41.897470"
 
 $number
 [1] 72
 
 $free
-[1] 31
+[1] 36
 
 $bikes
-[1] 8
+[1] 2
 
 $address
 [1] "W 52 St & 11 Ave"
@@ -117,7 +117,7 @@ bike <- lapply(bike, function(station){within(station, {
 ```
 
 
---- .bigger
+--- .RAW .bigger 
 
 ## Add Popup
 
@@ -150,21 +150,21 @@ Here, we loop through all the stations, and add a popup that displays fields of 
 
 ```
 <b>W 52 St &amp; 11 Ave</b><br>
-<b>Free Docks: </b> 31 <br>
-<b>Available Bikes:</b> 8<br>
-<b>Retrieved At:</b> 2013-07-26T00:40:44.411321
+<b>Free Docks: </b> 36 <br>
+<b>Available Bikes:</b> 2<br>
+<b>Retrieved At:</b> 2013-07-26T03:34:41.897470
 ```
 
 
 ### View
 
 <b>W 52 St &amp; 11 Ave</b><br>
-<b>Free Docks: </b> 31 <br>
-<b>Available Bikes:</b> 8<br>
-<b>Retrieved At:</b> 2013-07-26T00:40:44.411321
+<b>Free Docks: </b> 36 <br>
+<b>Available Bikes:</b> 2<br>
+<b>Retrieved At:</b> 2013-07-26T03:34:41.897470
 
 
----
+--- .RAW
 
 <a class='example'>getData</a>
 
