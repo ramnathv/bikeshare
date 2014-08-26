@@ -23,7 +23,7 @@ networks <- getNetworks()
 getData <- function(network = 'citibikenyc'){
   require(httr)
   url = sprintf('http://api.citybik.es/%s.json', network)
-  bike = fromJSON(content(GET(url)))
+  bike = content(GET(url))
   lapply(bike, function(station){within(station, { 
    fillColor = cut(
      as.numeric(bikes)/(as.numeric(bikes) + as.numeric(free)), 
